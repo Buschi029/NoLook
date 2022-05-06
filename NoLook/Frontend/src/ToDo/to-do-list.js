@@ -16,6 +16,12 @@ export default class PageList extends Page {
         super(app, HtmlTemplate);
 
         this._emptyMessageElement = null;
+        this._dataset = {
+            title:"humlae", 
+            date: "25.08.2000",
+            duration: 30,
+            kind: "termin"
+        }
     }
 
     /**
@@ -37,5 +43,17 @@ export default class PageList extends Page {
         // HTML-Inhalt nachladen
         await super.init();
         /////////////////////////////////////////////////////
+        this._url = `/terminedb/termine`;
+        let TestButton = this._mainElement.querySelector(".underTabs");
+       TestButton.addEventListener("click", () => this._save());
+
     }
+
+    async _save() {
+        await this._app.backend.fetch("PUT", this._url, {body: this._dataset});
+    //    await this.app.backend.fetch("PUT", this._url, {body: this._dataset});
+        alert("Test");
+        
+    }
+  
 };

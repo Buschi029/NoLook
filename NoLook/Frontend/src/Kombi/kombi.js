@@ -16,6 +16,7 @@ export default class PageList extends Page {
         super(app, HtmlTemplate);
 
         this._emptyMessageElement = null;
+
     }
 
     /**
@@ -37,5 +38,5 @@ export default class PageList extends Page {
         // HTML-Inhalt nachladen
         await super.init();
         /////////////////////////////////////////////////////
-    }
-};
+}};
+

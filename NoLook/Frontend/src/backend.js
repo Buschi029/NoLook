@@ -76,10 +76,10 @@ export default class Backend {
         }
 
         fetchOptions.headers["Accept"] = "application/json";
-
+    
         // REST-Webservice aufrufen
         let response = await fetch(`${this._url}${url}`, fetchOptions);
-
+        alert(`${this._url}${url}`);
         if (response.ok) {
             return await response.json();
         } else {
