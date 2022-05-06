@@ -91,7 +91,7 @@ server.use(OpenApiEnforcerMiddleware(openApiEnforcer));
 
 // HTTP-Controller registrieren
 new RootController(server, "/", openApiFile);
-new TerminController(server, "/termin");
+new TerminController(server, "/termine");
 
 // Server tatsächlich starten
 server.listen(config.port, config.host, function() {

@@ -37,7 +37,7 @@ paths:
                   $ref: '#/components/schemas/HATEOAS_Collection'
                 x-content-type: application/json
 
-  /termin:
+  /termine:
     get:
       tags:
       - Termin
@@ -86,7 +86,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Address'
+                  $ref: '#/components/schemas/termine'
                 x-content-type: application/json
     post:
       tags:
@@ -100,7 +100,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Address'
+              $ref: '#/components/schemas/termine'
       responses:
         "201":
           description: Created
@@ -111,9 +111,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Address'
+                $ref: '#/components/schemas/termine'
 
-  /termin/{id}:
+  /termine/{id}:
     get:
       tags:
       - Termin
@@ -134,7 +134,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Address'
+                $ref: '#/components/schemas/termine'
         "404":
           description: Not Found
     put:
@@ -157,14 +157,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Address'
+              $ref: '#/components/schemas/termine'
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Address'
+                $ref: '#/components/schemas/termine'
         "404":
           description: Not Found
     patch:
@@ -187,14 +187,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Termin'
+              $ref: '#/components/schemas/termine'
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Termin'
+                $ref: '#/components/schemas/termine'
         "404":
           description: Not Found
     delete:

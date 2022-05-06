@@ -8,12 +8,12 @@ import {ObjectId} from "mongodb";
  * eigentliche Anwendungslogik losgelöst vom technischen Übertragungsweg.
  * Die Adressen werden der Einfachheit halber in einer MongoDB abgelegt.
  */
-export default class AddressService {
+export default class TerminService {
     /**
      * Konstruktor.
      */
     constructor() {
-        this._addresses = DatabaseFactory.database.collection("termine");
+        this._termine = DatabaseFactory.database.collection("termine");
     }
 
     /**
@@ -26,7 +26,7 @@ export default class AddressService {
      * @return {Promise} Liste der gefundenen Adressen
      */
     async search(query) {
-        let cursor = this._addresses.find(query, {
+        let cursor = this._termine.find(query, {
             sort: {
                 title,
             }
@@ -41,18 +41,18 @@ export default class AddressService {
      * @param {Object} address Zu speichernde Adressdaten
      * @return {Promise} Gespeicherte Adressdaten
      */
-    async create(address) {
-        address = address || {};
+    async create(termin) {
+        termin = termin || {};
 
-        let newAddress = {
-            title: address.title || "",
-            date:  address.date  || "",
-            duration:      address.duration      || "",
-            kind:      address.kind      || "",
+        let newTermin = {
+            title: termin.title || "",
+            date:  termin.date  || "",
+            duration:      termin.duration      || "",
+            kind:      termin.kind      || "",
         };
 
-        let result = await this._addresses.insertOne(newAddress);
-        return await this._addresses.findOne({_id: result.insertedId});
+        let result = await this._termine.insertOne(newTermin);
+        return await this._termine.findOne({_id: result.insertedId});
     }
 
     /**
@@ -62,7 +62,7 @@ export default class AddressService {
      * @return {Promise} Gefundene Adressdaten
      */
     async read(id) {
-        let result = await this._addresses.findOne({_id: new ObjectId(id)});
+        let result = await this._termine.findOne({_id: new ObjectId(id)});
         return result;
     }
 
@@ -74,21 +74,21 @@ export default class AddressService {
      * @param {[type]} address Zu speichernde Adressdaten
      * @return {Promise} Gespeicherte Adressdaten oder undefined
      */
-    async update(id, address) {
-        let oldAddress = await this._addresses.findOne({_id: new ObjectId(id)});
-        if (!oldAddress) return;
+    async update(id, termin) {
+        let oldTermin = await this._termine.findOne({_id: new ObjectId(id)});
+        if (!oldTermin) return;
 
         let updateDoc = {
             $set: {},
         }
 
-        if (address.title) updateDoc.$set.title = address.title;
-        if (address.date)  updateDoc.$set.date  = address.date;
-        if (address.duration)      updateDoc.$set.duration      = address.duration;
-        if (address.kind)      updateDoc.$set.kind      = address.kind;
+        if (termin.title) updateDoc.$set.title = termin.title;
+        if (termin.date)  updateDoc.$set.date  = termin.date;
+        if (termin.duration)      updateDoc.$set.duration      = termin.duration;
+        if (termin.kind)      updateDoc.$set.kind      = termin.kind;
 
-        await this._addresses.updateOne({_id: new ObjectId(id)}, updateDoc);
-        return this._addresses.findOne({_id: new ObjectId(id)});
+        await this._termine.updateOne({_id: new ObjectId(id)}, updateDoc);
+        return this._termine.findOne({_id: new ObjectId(id)});
     }
 
     /**
@@ -98,7 +98,7 @@ export default class AddressService {
      * @return {Promise} Anzahl der gelöschten Datensätze
      */
     async delete(id) {
-        let result = await this._addresses.deleteOne({_id: new ObjectId(id)});
+        let result = await this._termine.deleteOne({_id: new ObjectId(id)});
         return result.deletedCount;
     }
 }
