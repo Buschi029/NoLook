@@ -1,0 +1,305 @@
+<!-- Stylesheet der Seite -->
+<style>
+    main .content {
+        background-color: rgba(250, 246, 246, 0.61);
+        padding: 1%;
+        ;
+        height: 100%;
+    }
+
+    main .content label {
+        border: none;
+        background: none;
+        width: 25%;
+    }
+
+    main .content button {
+        border: none;
+        background: none;
+        transition: 0.3s;
+        cursor: pointer;
+        width: 25%;
+    }
+
+    main .content button:hover {
+        background-color: #ccc;
+    }
+
+    main .content table {
+        background-color: lightblue;
+        color: black;
+        border: solid black;
+        padding: 0em 0em 0em 0em;
+    }
+
+    main .content2 table {
+        background-color: lightblue;
+        color: black;
+        padding: 0em 4em 0em 0em;
+    }
+
+    main .box {
+        float: left;
+        width: 45%;
+        margin-right: 3.33333%;
+        padding: 20px;
+        background: none;
+        box-sizing: border-box;
+    }
+
+    main a:link,
+    a:visited {
+        text-decoration: none;
+    }
+
+    main .box2 {
+        float: right;
+        width: 45%;
+        margin-right: 0;
+        padding: 20px;
+        background: none;
+        box-sizing: border-box;
+    }
+
+    main #icon {
+        width: 10px;
+
+    }
+
+    main #icon2 {
+        width: 10px
+    }
+
+    main #termin {
+        width: 90%
+    }
+
+    main #uhrzeit {
+        width: 10%
+    }
+
+    main .underTabs button {
+        background-color: #f1f1f1;
+        width: 100%;
+        float: left;
+        cursor: pointer;
+        width: 100%;
+        transition: 0.3s;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        height: 35px;
+
+    }
+
+    main .background {
+        border: 2px solid black;
+        margin-left: 2%;
+        margin-right: 2%;
+        background-color: rgba(250, 246, 246, 0.61);
+    }
+</style>
+
+<!-- Inhalt der Seite -->
+<main>
+    <div class="background">
+        <div class="underTabs">
+            <button class="underTab_button" onclick="showForm()">Neue Aufgabe</button>
+        </div>
+        <div class="content">
+            <div class="box">
+                <table width=100% height=500 style="float:left;" cellspacing="15">
+
+                    <tr>
+                        <th id="uhrzeit"></th>
+                        <th id="termin">Termin</th>
+                        <th id="icon"></th>
+                        <th id="icon2"></th>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Termin mit Sasch</td>
+                        <td><a href="">✎</td>
+                        <td><a href="">🗑</a></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td></td>
+
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td></td>
+
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td></td>
+
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td></td>
+
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td></td>
+
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td></td>
+
+                    </tr>
+                </table>
+
+
+            </div>
+
+            <div class="content2">
+                <div class="box2">
+                    <table width=100% height=500 style="float:right;" cellspacing="15">
+                        <tr>
+                            <th></th>
+                            <th>ToDo's</th>
+                        </tr>
+                        <tr>
+                            <td>☐</td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td>☐</td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td>☐</td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td>☐</td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td>☐</td>
+                            <td></td>
+
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>☐</td>
+                            <td></td>
+
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>☐</td>
+                            <td></td>
+
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>☐</td>
+                            <td></td>
+
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>☐</td>
+                            <td></td>
+
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>☐</td>
+                            <td></td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script>
+            function showForm() {
+                document.getElementById('form').style.display = "block";
+            }
+
+        </script>
+        </center>
+
+        <center>
+    </div>
+
+    <div class="form" id="form" style="display:none">
+        <form class="form-container">
+            <h1>Neuer Eintrag</h1>
+
+            <label for="titel"><b>Titel: </b></label>
+            <input type="text" placeholder="Titel eingeben" required>
+            <p></p>
+            <label for="datum"><b>Datum:</b></label>
+            <input type="date" required>
+            <p></p>
+            <label for="uhrzeit"><b>Uhrzeit:</b></label>
+
+            <select name="uhrzeit" id="uhrzeit">
+                <option value="8">8:00</option>
+                <option value="9">9:00</option>
+                <option value="10">10:00</option>
+                <option value="11">11:00</option>
+                <option value="11">12:00</option>
+                <option value="11">13:00</option>
+                <option value="11">14:00</option>
+                <option value="11">15:00</option>
+                <option value="11">16:00</option>
+            </select>
+            <p></p>
+            <label for="uhrzeit"><b>Dauer:</b></label>
+
+            <select name="dauer" id="dauer">
+                <option value="1h">1h</option>
+                <option value="2h">2h</option>
+                <option value="3h">3h</option>
+                <option value="4h">4h</option>
+                <option value="5h">5h</option>
+                <option value="6h">6h</option>
+
+            </select>
+            <p></p>
+
+            <button type="submit" class="speichern">Speichern</button>
+            <input type="reset" value="Zurücksetzen" id="reset" />
+            <button type="button" class="abbrechen" onclick="closeForm()">Abbrechen</button>
+            <script>
+                function closeForm() {
+                    document.getElementById('form').style.display = "none";
+                }
+
+            </script>
+
+        </form>
+</main>
