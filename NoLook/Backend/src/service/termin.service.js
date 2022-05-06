@@ -13,7 +13,7 @@ export default class AddressService {
      * Konstruktor.
      */
     constructor() {
-        this._addresses = DatabaseFactory.database.collection("addresses");
+        this._addresses = DatabaseFactory.database.collection("termine");
     }
 
     /**
@@ -28,8 +28,7 @@ export default class AddressService {
     async search(query) {
         let cursor = this._addresses.find(query, {
             sort: {
-                first_name: 1,
-                last_name: 1,
+                title,
             }
         });
 
@@ -46,10 +45,10 @@ export default class AddressService {
         address = address || {};
 
         let newAddress = {
-            first_name: address.first_name || "",
-            last_name:  address.last_name  || "",
-            phone:      address.phone      || "",
-            email:      address.email      || "",
+            title: address.title || "",
+            date:  address.date  || "",
+            duration:      address.duration      || "",
+            kind:      address.kind      || "",
         };
 
         let result = await this._addresses.insertOne(newAddress);
@@ -83,10 +82,10 @@ export default class AddressService {
             $set: {},
         }
 
-        if (address.first_name) updateDoc.$set.first_name = address.first_name;
-        if (address.last_name)  updateDoc.$set.last_name  = address.last_name;
-        if (address.phone)      updateDoc.$set.phone      = address.phone;
-        if (address.email)      updateDoc.$set.email      = address.email;
+        if (address.title) updateDoc.$set.title = address.title;
+        if (address.date)  updateDoc.$set.date  = address.date;
+        if (address.duration)      updateDoc.$set.duration      = address.duration;
+        if (address.kind)      updateDoc.$set.kind      = address.kind;
 
         await this._addresses.updateOne({_id: new ObjectId(id)}, updateDoc);
         return this._addresses.findOne({_id: new ObjectId(id)});

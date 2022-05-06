@@ -30,7 +30,7 @@ class App {
                 show: () => this._gotoToDo()
             },{
                 url: "^/Tagessicht/$",
-                show: matches => this._gotoCombi(),
+                show: () => this._gotoCombi(),
             },{
                 url: ".*",
                 show: () => this._gotoCal()

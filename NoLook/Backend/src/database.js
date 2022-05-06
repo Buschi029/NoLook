@@ -20,7 +20,7 @@ class DatabaseFactory {
         // Datenbankverbindung herstellen
         this.client = new MongoClient(connectionUrl);
         await this.client.connect();
-        this.database = this.client.db("adressbook");
+        this.database = this.client.db("termine");
 
         await this._createDemoData();
     }
@@ -36,34 +36,34 @@ class DatabaseFactory {
         if (await addresses.estimatedDocumentCount() === 0) {
             addresses.insertMany([
                 {
-                    first_name: "Willy",
-                    last_name: "Tanner",
-                    phone: "+49 711 564412",
-                    email: "willy.tanner@alf.com",
+                    title: "Mittagessen",
+                    date: "07.05.2022 14:00:00",
+                    duration: "60",
+                    kind: "termin",
                 },
                 {
-                    first_name: "Michael",
-                    last_name: "Knight",
-                    phone: "+49 721 554194",
-                    email: "michael@knight-rider.com",
+                    title: "Fussball",
+                    date: "07.05.2022 10:00:00",
+                    duration: "120",
+                    kind: "termin",
                 },
                 {
-                    first_name: "Fox",
-                    last_name: "Mulder",
-                    phone: "+49 721 553181",
-                    email: "mulder@xfiles.com",
+                    title: "Lernen",
+                    date: "07.05.2022 00:00:00",
+                    duration: "",
+                    kind: "todo",
                 },
                 {
-                    first_name: "Dana",
-                    last_name: "Scully",
-                    phone: "+49 721 572287",
-                    email: "scully@xfiles.com",
+                    title: "Bus",
+                    date: "08.05.2022 9:00:00",
+                    duration: "30",
+                    kind: "termin",
                 },
                 {
-                    first_name: "Elwood",
-                    last_name: "Blues",
-                    phone: "+49 721 957338",
-                    email: "elwood@blues-brothers.com",
+                    title: "Frühstück",
+                    date: "08.05.2022 8:00:00",
+                    duration: "30",
+                    kind: "termin",
                 },
             ]);
         }
