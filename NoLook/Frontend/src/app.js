@@ -84,9 +84,9 @@ class App {
     async _gotoToDo() {
         try {
             // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
-            let {default: PageEdit} = await import("./ToDo/to-do-list.js");
+            let {default: PageList} = await import("./ToDo/to-do-list.js");
 
-            let page = new PageEdit(this);
+            let page = new PageList(this);
             await page.init();
             this._showPage(page, "toDo");
         } catch (ex) {
@@ -101,9 +101,9 @@ class App {
     async _gotoCombi() {
         try {
             // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
-            let {default: PageEdit} = await import("./Kombi/kombi.js");
+            let {default: PageList} = await import("./Kombi/kombi.js");
 
-            let page = new PageEdit(this);
+            let page = new PageList(this);
             await page.init();
             this._showPage(page, "combi");
         } catch (ex) {
