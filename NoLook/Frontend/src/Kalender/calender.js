@@ -7,12 +7,15 @@ import HtmlTemplate from "./calender.html";
  * Klasse PageEdit: Stellt die Seite zum Anlegen oder Bearbeiten einer Adresse
  * zur Verfügung.
  */
+var date = new Date();
 export default class PageEdit extends Page {
     /**
      * Konstruktor.
      *
      * @param {App} app Instanz der App-Klasse
      */
+
+    
     constructor(app) {
         super(app, HtmlTemplate);
         
@@ -36,6 +39,8 @@ export default class PageEdit extends Page {
      */
     async init() {
         // HTML-Inhalt nachladen
+
+        
         await super.init();
         this.restart();
 
@@ -44,58 +49,74 @@ export default class PageEdit extends Page {
 
         let rightButton = this._mainElement.querySelector("#moveRight");
         rightButton.addEventListener("click", () => this.moveRight());
-
+        
+        
     }
 
     restart() {
-        dateValue(); 
-        clear(); 
-        draw();
+        this.dateValue(); 
+        this.clear(); 
+        this.draw();
     }
     
     moveLeft() {
         date.setMonth(date.getMonth() - 1);
-        dateValue();
-        clear();
-        draw();
+        this.dateValue();
+        this.clear();
+        this.draw();
     }
     
     moveRight() {
         date.setMonth(date.getMonth() + 1);
-        dateValue();
-        clear();
-        draw();
+        this.dateValue();
+        this.clear();
+        this.draw();
     }
     
     dateValue() {
-        monat = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Okotber", "November", "Dezember",]
-        ausgabe = monat[date.getMonth()] + " " + date.getFullYear();
-        this._mainElement.querySelector("#month").textContent = ausgabe;
+        var monat = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Okotber", "November", "Dezember",];
+        var ausgabe = monat[date.getMonth()] + " " + date.getFullYear();
+        
+        this._mainElement.querySelector(".date").textContent = ausgabe;
+        
+        
     }
     
     draw() {
+        
+
         var helpDate = new Date(date.getFullYear(), date.getMonth(), 1);
         var grey = 1;
         var start = 1;
-        vergleich = [6, 0, 1, 2, 3, 4, 5];
+        var vergleich = [6, 0, 1, 2, 3, 4, 5];
         start = start + vergleich[helpDate.getDay()];
         var id = "";
+        var linkid ="";
+        var button;
         while (grey  < start) {
             id = "#calendar_entry_" + grey;
-            this._mainElement.querySelector(id).style.backgroundColor = "#6d6d6d";
+            button = this._mainElement.querySelector(id);
+            button.style.backgroundColor = "#6d6d6d";
+            button.disabled=true;
             grey = grey + 1;
         }
         var counter = 0;
+        
         while (helpDate.getMonth() == date.getMonth()) {
             counter = counter + 1;
-            id = "calendar_entry_" + start;
+            id = "#calendar_entry_" + start;
+            linkid = "#link_"+start;
             this._mainElement.querySelector(id).textContent = counter;
+            
+            this._mainElement.querySelector(linkid).href = "#/Tagessicht/?"+helpDate.getDate()+ "-" + (helpDate.getMonth() + 1) + "-" + helpDate.getFullYear();
             start = start + 1;
             helpDate.setDate(helpDate.getDate() + 1); 
         }
         while (start < 43) {
-            id = "calendar_entry_" + start;
-            this._mainElement.querySelector(id)(id).style.backgroundColor = "#6d6d6d";
+            id = "#calendar_entry_" + start;
+            button = this._mainElement.querySelector(id);
+            button.style.backgroundColor = "#6d6d6d";
+            button.disabled=true;
             start = start + 1;
         }
     }
@@ -103,10 +124,14 @@ export default class PageEdit extends Page {
     clear() {
         var counter = 1;
         var id = "";
+        var button;
         while (counter < 43) {
-            id = "calendar_entry_" + counter;
-            this._mainElement.querySelector(id).textContent = "";
-            this._mainElement.querySelector(id).style.backgroundColor = "white";
+            id = "#calendar_entry_" + counter;
+            button = this._mainElement.querySelector(id);
+            button.textContent ="";
+            button.disabled=false;
+            button.style.backgroundColor="transparent";
+            //this._mainElement.querySelector(id).style.backgroundColor = "white";
             counter = counter + 1;
         }
     }

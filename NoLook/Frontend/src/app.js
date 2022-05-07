@@ -29,13 +29,14 @@ class App {
                 url: "^/ToDo/$",
                 show: () => this._gotoToDo()
             },{
-                url: "^/Tagessicht/$",
+                url: "^/Tagessicht/*",
                 show: () => this._gotoCombi(),
             },{
                 url: ".*",
                 show: () => this._gotoCal()
             },
         ]);
+        
 
         // Fenstertitel merken, um später den Name der aktuellen Seite anzuhängen
         this._documentTitle = document.title;

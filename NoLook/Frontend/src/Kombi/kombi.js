@@ -38,5 +38,17 @@ export default class PageList extends Page {
         // HTML-Inhalt nachladen
         await super.init();
         /////////////////////////////////////////////////////
+        
+        let url = document.location.toString();
+        let datumCode = url.split('?');
+        let date = datumCode[1];
+        let dateArray = date.split('-');
+
+        let day = dateArray[0]
+        let month = dateArray[1]
+        let year = dateArray[2]
+        var monat = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Okotber", "November", "Dezember",];
+        this._mainElement.querySelector('#Datum').textContent = ""+day+". "+monat[month]+" "+year
+
 }};
 
