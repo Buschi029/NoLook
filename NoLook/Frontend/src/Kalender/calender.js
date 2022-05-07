@@ -8,6 +8,9 @@ import HtmlTemplate from "./calender.html";
  * zur Verfügung.
  */
 var date = new Date();
+var data;
+var list = new Array();
+
 export default class PageEdit extends Page {
     /**
      * Konstruktor.
@@ -42,6 +45,20 @@ export default class PageEdit extends Page {
 
         
         await super.init();
+        data = await this._app.backend.fetch("GET", "/termine");
+        
+       
+        
+
+        for (var datensatz in data) {
+            let dataset = data[datensatz];
+            var timePart = dataset.date.split(' ');
+            var datePart = timePart[0].toString().split('.');
+            //var datum = new Date(datePart[2] ,  datePart[1]-1, datePart[0]);
+            list.push(new Date(datePart[2], datePart[1]-1, datePart[0]));
+    
+        }
+
         this.restart();
 
         let leftButton = this._mainElement.querySelector("#moveLeft");
@@ -109,6 +126,13 @@ export default class PageEdit extends Page {
             this._mainElement.querySelector(id).textContent = counter;
             
             this._mainElement.querySelector(linkid).href = "#/Tagessicht/?"+helpDate.getDate()+ "-" + (helpDate.getMonth() + 1) + "-" + helpDate.getFullYear();
+            for (var dataset in list) {
+                let datensatz = list[dataset];
+                
+                if (helpDate.getDate()==datensatz.getDate() && helpDate.getMonth()==datensatz.getMonth() && helpDate.getFullYear()==datensatz.getFullYear()) {
+                    this._mainElement.querySelector(id).style.backgroundColor="red";
+                }
+            }
             start = start + 1;
             helpDate.setDate(helpDate.getDate() + 1); 
         }

@@ -6,6 +6,9 @@ import HtmlTemplate from "./to-do-list.html";
 /**
  * Klasse PageList: Stellt die Listenübersicht zur Verfügung
  */
+
+var data;
+
 export default class PageList extends Page {
     /**
      * Konstruktor.
@@ -42,10 +45,33 @@ export default class PageList extends Page {
     async init() {
         // HTML-Inhalt nachladen
         await super.init();
+
+        data = await this._app.backend.fetch("GET", "/termine");
+        
+       
+        
+        
+        for (var datensatz in data) {
+            let dataset = data[datensatz];
+            if(dataset.kind=="todo"){
+            
+                let text = this._mainElement.querySelector(".toDos");
+                var input = document.createElement("textarea");
+                input.value=dataset.title;
+                text.appendChild(input)
+
+
+            } 
+
+        }
+
+
         /////////////////////////////////////////////////////
         this._url = `/terminedb/termine`;
         let TestButton = this._mainElement.querySelector(".underTabs");
        TestButton.addEventListener("click", () => this._save());
+
+
 
     }
 
