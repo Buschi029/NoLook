@@ -3,8 +3,7 @@
     main .content {
         background-color: rgba(250, 246, 246, 0.61);
         padding: 1%;
-        ;
-        height: 100%;
+        height: 750px;
     }
 
     main .content label {
@@ -25,11 +24,10 @@
         background-color: #ccc;
     }
 
-    main .content table {
+    main .boxbackground {
         background-color: lightblue;
-        color: black;
-        border: solid black;
         padding: 0em 0em 0em 0em;
+        height: 100%;
     }
 
     main .content2 table {
@@ -39,6 +37,8 @@
     }
 
     main .box {
+        display: grid;
+        grid-template-columns: 80% 20%;
         float: left;
         width: 45%;
         margin-right: 3.33333%;
@@ -60,6 +60,13 @@
         background: none;
         box-sizing: border-box;
     }
+    main .underTabs{
+        height: 100%;
+        background-color: white;
+        border-color: red;
+
+    
+    }
 
     main #icon {
         width: 10px;
@@ -67,15 +74,15 @@
     }
 
     main #icon2 {
-        width: 10px
+        width: 10px;
     }
 
     main #termin {
-        width: 90%
+        width: 90%;
     }
 
     main #uhrzeit {
-        width: 10%
+        width: 10%;
     }
 
     main .underTabs button {
@@ -83,7 +90,6 @@
         width: 100%;
         float: left;
         cursor: pointer;
-        width: 100%;
         transition: 0.3s;
         border-top: none;
         border-right: none;
@@ -97,6 +103,7 @@
         margin-left: 2%;
         margin-right: 2%;
         background-color: rgba(250, 246, 246, 0.61);
+        height: 100%;
     }
 
     main #Datum {
@@ -104,6 +111,20 @@
         font: "Arial";
         font-weight: "bold";
     }
+
+    main .row {
+        background: none;
+        border: none;
+        resize: none;
+        height: 25px;
+        width: 100%;
+    }
+
+    main .title{
+        font-size: 28px;
+        text-align: center;
+    }
+
 </style>
 
 <!-- Inhalt der Seite -->
@@ -112,154 +133,30 @@
         <div class="underTabs">
             <button class="underTab_button" onclick="showForm()">Neue Aufgabe</button>
         </div>
-        <div class="content">
+        <div class="content"><center>
             <label id="Datum"></label>
-            <div class="box">
-                <table width=100% height=500 style="float:left;" cellspacing="15">
+            <div class="boxbackground">
+                <div class="box">
+                    <label class="title">Titel</label><textarea class="row"></textarea>
+                    <textarea id="lefttext" class="row">Test</textarea>
 
-                    <tr>
-                        <th id="uhrzeit"></th>
-                        <th id="termin">Termin</th>
-                        <th id="icon"></th>
-                        <th id="icon2"></th>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>Termin mit Sascha</td>
-                        <td><a href="">✎</td>
-                        <td><a href="">🗑</a></td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td></td>
-
-                    </tr>
-                    </tr>
-                    <tr>
-                        <td>13</td>
-                        <td></td>
-
-                    </tr>
-                    </tr>
-                    <tr>
-                        <td>14</td>
-                        <td></td>
-
-                    </tr>
-                    </tr>
-                    <tr>
-                        <td>15</td>
-                        <td></td>
-
-                    </tr>
-                    </tr>
-                    <tr>
-                        <td>16</td>
-                        <td></td>
-
-                    </tr>
-                    </tr>
-                    <tr>
-                        <td>17</td>
-                        <td></td>
-
-                    </tr>
-                </table>
-
-
-            </div>
-
-            <div class="content2">
-                <div class="box2">
-                    <table width=100% height=500 style="float:right;" cellspacing="15">
-                        <tr>
-                            <th></th>
-                            <th>ToDo's</th>
-                        </tr>
-                        <tr>
-                            <td>☐</td>
-                            <td></td>
-
-                        </tr>
-                        <tr>
-                            <td>☐</td>
-                            <td></td>
-
-                        </tr>
-                        <tr>
-                            <td>☐</td>
-                            <td></td>
-
-                        </tr>
-                        <tr>
-                            <td>☐</td>
-                            <td></td>
-
-                        </tr>
-                        <tr>
-                            <td>☐</td>
-                            <td></td>
-
-                        </tr>
-                        </tr>
-                        <tr>
-                            <td>☐</td>
-                            <td></td>
-
-                        </tr>
-                        </tr>
-                        <tr>
-                            <td>☐</td>
-                            <td></td>
-
-                        </tr>
-                        </tr>
-                        <tr>
-                            <td>☐</td>
-                            <td></td>
-
-                        </tr>
-                        </tr>
-                        <tr>
-                            <td>☐</td>
-                            <td></td>
-
-                        </tr>
-                        </tr>
-                        <tr>
-                            <td>☐</td>
-                            <td></td>
-
-                        </tr>
-                    </table>
                 </div>
             </div>
-        </div>
-        <script>
-            function showForm() {
-                document.getElementById('form').style.display = "block";
-            }
+            <div class="boxbackground">
+                <div class="box">
+                    <label class="title">ToDo's</label><textarea class="row"></textarea>
+                    <textarea id="righttext" class="row">Test</textarea>
 
-        </script>
+                </div>
+            </div>
+            <script>
+                function showForm() {
+                    document.getElementById('form').style.display = "block";
+                }
+
+            </script>
         </center>
-
-        <center>
-    </div>
+        </div>
 
     <div class="form" id="form" style="display:none">
         <form class="form-container">
