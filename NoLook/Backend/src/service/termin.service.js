@@ -28,7 +28,7 @@ export default class TerminService {
     async search(query) {
         let cursor = this._termine.find(query, {
             sort: {
-                title,
+                title: 1
             }
         });
 

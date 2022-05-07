@@ -212,10 +212,11 @@ paths:
         schema:
           type: string
       responses:
-        "200":
+        "204":
           description: OK
         "404":
           description: Not Found
+        
 
 components:
   schemas:
@@ -256,7 +257,7 @@ components:
           items:
             type: string
 
-    Termin:
+    termine:
       title: Termine
       type: object
       properties:

@@ -33,8 +33,8 @@ class DatabaseFactory {
     async _createDemoData() {
         let termine = this.database.collection("termine");
 
-        if (await addresses.estimatedDocumentCount() === 0) {
-            addresses.insertMany([
+        if (await termine.estimatedDocumentCount() === 0) {
+            termine.insertMany([
                 {
                     title: "Mittagessen",
                     date: "07.05.2022 14:00:00",

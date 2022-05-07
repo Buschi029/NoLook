@@ -1,6 +1,6 @@
 "use strict"
 
-import AddressService from "../service/address.service.js";
+import TerminService from "../service/termin.service.js";
 import {wrapHandler} from "../utils.js";
 import RestifyError from "restify-errors";
 
@@ -9,7 +9,7 @@ import RestifyError from "restify-errors";
  * alle notwendigen URL-Handler beim Webserver für einen einfachen REST-
  * Webservice zum Lesen und Schreiben von Adressen.
  */
-export default class AddressController {
+export default class TerminController {
     /**
      * Konstruktor. Hier werden die URL-Handler registrert.
      *
@@ -17,7 +17,7 @@ export default class AddressController {
      * @param {String} prefix Gemeinsamer Prefix aller URLs
      */
     constructor(server, prefix) {
-        this._service = new AddressService();
+        this._service = new TerminService();
         this._prefix = prefix;
 
         // Collection: Adressen
@@ -82,9 +82,10 @@ export default class AddressController {
      */
     async read(req, res, next) {
         let result = await this._service.read(req.params.id);
-        this._insertHateoasLinks(result);
+        
 
         if (result) {
+            this._insertHateoasLinks(result);
             res.sendResult(result);
         } else {
             throw new RestifyError.NotFoundError("Adresse nicht gefunden");
@@ -100,9 +101,10 @@ export default class AddressController {
      */
     async update(req, res, next) {
         let result = await this._service.update(req.params.id, req.body);
-        this._insertHateoasLinks(result);
+        
 
         if (result) {
+            this._insertHateoasLinks(result);
             res.sendResult(result);
         } else {
             throw new RestifyError.NotFoundError("Adresse nicht gefunden");
