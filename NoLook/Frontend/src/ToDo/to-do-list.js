@@ -8,6 +8,7 @@ import HtmlTemplate from "./to-do-list.html";
  */
 
 var data;
+var date = new Date();
 
 export default class PageList extends Page {
     /**
@@ -48,38 +49,105 @@ export default class PageList extends Page {
 
         data = await this._app.backend.fetch("GET", "/termine");
         
-       
+        let leftButton = this._mainElement.querySelector("#moveLeft");
+        leftButton.addEventListener("click", () => this.moveLeft());
+
+        let rightButton = this._mainElement.querySelector("#moveRight");
+        rightButton.addEventListener("click", () => this.moveRight());
         
-        
-        for (var datensatz in data) {
-            let dataset = data[datensatz];
-            if(dataset.kind=="todo"){
-            
-                let text = this._mainElement.querySelector(".toDos");
-                var input = document.createElement("textarea");
-                input.value=dataset.title;
-                text.appendChild(input)
-
-
-            } 
-
-        }
-
-
-        /////////////////////////////////////////////////////
-        this._url = `/terminedb/termine`;
-        let TestButton = this._mainElement.querySelector(".underTabs");
-       TestButton.addEventListener("click", () => this._save());
-
-
-
+        this.dateText();
     }
 
-    async _save() {
-        await this._app.backend.fetch("PUT", this._url, {body: this._dataset});
-    //    await this.app.backend.fetch("PUT", this._url, {body: this._dataset});
-        alert("Test");
-        
+    moveLeft() {
+        date.setDate(date.getDate() - 1);
+        this.dateText();
+    }
+    
+    moveRight() {
+        date.setDate(date.getDate() + 1);
+        this.dateText();
+    }
+
+    dateText() {
+        let leftTitle = this._mainElement.querySelector("#leftTitle");
+        let rightTitle = this._mainElement.querySelector("#rightTitle");
+        var today = new Date();
+        if (date.getDate()==today.getDate() && date.getMonth()==today.getMonth() && date.getFullYear()==today.getFullYear()) {
+            leftTitle.textContent = "Heute";
+            rightTitle.textContent = "Morgen";
+        }
+        else {
+            date.setDate(date.getDate() + 1);
+            if (date.getDate()==today.getDate() && date.getMonth()==today.getMonth() && date.getFullYear()==today.getFullYear()) {
+                date.setDate(date.getDate() - 1);
+                leftTitle.textContent = "" + date.getDate() + ". " + date.getMonth() + " " + date.getFullYear();
+                rightTitle.textContent = "Heute";
+            }
+            else {
+                date.setDate(date.getDate() - 2);
+                if (date.getDate()==today.getDate() && date.getMonth()==today.getMonth() && date.getFullYear()==today.getFullYear()) {
+                    date.setDate(date.getDate() + 1);
+                    leftTitle.textContent = "Morgen";
+                    rightTitle.textContent = "" + date.getDate() + ". " + date.getMonth() + " " + date.getFullYear();
+                }
+                else {
+                    date.setDate(date.getDate() + 1);
+                    leftTitle.textContent = "" + date.getDate() + ". " + date.getMonth() + " " + date.getFullYear();
+                    date.setDate(date.getDate() + 1);
+                    rightTitle.textContent = "" + date.getDate() + ". " + date.getMonth() + " " + date.getFullYear();
+                    date.setDate(date.getDate() - 1);
+                }
+            }
+        }
+        this.addToDo();
     }
   
+    addToDo() {
+        for (var datensatz in data) {
+            let dataset = data[datensatz];
+            var datePart = dataset.date.split(" ");
+            var dateArray = datePart[0].split(".");
+            var compareDate = new Date(dateArray[2], dateArray[1] - 1, dateArray[0]);
+            if(dataset.kind=="todo" && date.getDate()==compareDate.getDate() && date.getMonth()==compareDate.getMonth() && date.getFullYear()==compareDate.getFullYear()){
+            
+                let text = this._mainElement.querySelector("#partLeft");
+                var input = document.createElement("textarea");
+                var editIcon = document.createElement("button");
+                var deleteIcon = document.createElement("button");
+                var icons = document.createElement("div");
+                icons.className = "toDoEntry";
+                input.value=dataset.title;
+                editIcon.textContent = "✎";
+                editIcon.id = dataset.id;
+                deleteIcon.textContent = "🗑";
+                deleteIcon.id = dataset.id
+                icons.appendChild(editIcon);
+                icons.appendChild(deleteIcon);
+                text.appendChild(input);
+                text.appendChild(icons);
+            } 
+            else {
+                date.setDate(date.getDate() + 1);
+                if(dataset.kind=="todo" && date.getDate()==compareDate.getDate() && date.getMonth()==compareDate.getMonth() && date.getFullYear()==compareDate.getFullYear()){
+                
+                    let text = this._mainElement.querySelector("#partRight");
+                    var input = document.createElement("textarea");                
+                    var editIcon = document.createElement("button");
+                    var deleteIcon = document.createElement("button");
+                    var icons = document.createElement("div");
+                    icons.className = "toDoEntry";
+                    input.value=dataset.title;
+                    editIcon.textContent = "✎";
+                    editIcon.id = dataset.id;
+                    deleteIcon.textContent = "🗑";
+                    deleteIcon.id = dataset.id
+                    icons.appendChild(editIcon);
+                    icons.appendChild(deleteIcon);
+                    text.appendChild(input);
+                    text.appendChild(icons);
+                } 
+                date.setDate(date.getDate() - 1);
+            }
+        }
+    }
 };

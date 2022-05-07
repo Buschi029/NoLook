@@ -78,6 +78,20 @@
         border: none;
         height: 380px;
     }
+
+    main .toDoEntry {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+
+    main .toDoEntry button {
+        border: none;
+        background: none;
+    }
+
+    main .toDoEntry button:hover {
+        background-color: rgb(159, 226, 178);
+    }
 </style>
 
 <!-- Inhalt der Seite -->
@@ -88,27 +102,14 @@
         </div>
         <div class="content">
             <button class="arrow">&#10094;</button>
-            <label class="date">Heute</label>
-            <label class="date">Morgen</label>
+            <label class="date" id="leftTitle">Heute</label>
+            <label class="date" id="rightTitle">Morgen</label>
             <button class="arrow">&#10095;</button>
             <textarea id="empty" disabled></textarea>
-            <div class="toDos">
-                <textarea disabled id="text_left" class="text">Darmus</textarea>
-                <div>
-                    <button id="check">✓</button>
-                    <button id="edit">✎</button>
-                    <button id="delete">🗑</button>
-                </div>
-                
-
+            <div class="toDos" id="partLeft">
+              
             </div>
-            <div class="toDos">
-                <textarea disabled id="text_right" class="text">Mulmus</textarea>
-                <div>
-                    <button id="check">✓</button>
-                    <button id="edit">✎</button>
-                    <button id="delete">🗑</button>
-                </div>
+            <div class="toDos" id="partRight">
                 
             </div>
             <textarea id="empty" disabled></textarea>
