@@ -103,6 +103,7 @@ export default class PageList extends Page {
     }
   
     addToDo() {
+        this.clear();
         for (var datensatz in data) {
             let dataset = data[datensatz];
             var datePart = dataset.date.split(" ");
@@ -111,6 +112,11 @@ export default class PageList extends Page {
             if(dataset.kind=="todo" && date.getDate()==compareDate.getDate() && date.getMonth()==compareDate.getMonth() && date.getFullYear()==compareDate.getFullYear()){
             
                 let text = this._mainElement.querySelector("#partLeft");
+                // while (text.firstChild) {
+                //     text.removeChild(text.firstChild);
+                // }
+                
+                text.innerHTML="";
                 var input = document.createElement("textarea");
                 var editIcon = document.createElement("button");
                 var deleteIcon = document.createElement("button");
@@ -125,12 +131,17 @@ export default class PageList extends Page {
                 icons.appendChild(deleteIcon);
                 text.appendChild(input);
                 text.appendChild(icons);
+
             } 
             else {
                 date.setDate(date.getDate() + 1);
                 if(dataset.kind=="todo" && date.getDate()==compareDate.getDate() && date.getMonth()==compareDate.getMonth() && date.getFullYear()==compareDate.getFullYear()){
                 
                     let text = this._mainElement.querySelector("#partRight");
+                    while (text.firstChild) {
+                        text.removeChild(text.firstChild);
+                    }
+                   
                     var input = document.createElement("textarea");                
                     var editIcon = document.createElement("button");
                     var deleteIcon = document.createElement("button");
@@ -148,6 +159,20 @@ export default class PageList extends Page {
                 } 
                 date.setDate(date.getDate() - 1);
             }
+        }
+    }
+    clear() {
+
+       
+
+        const textLeft = this._mainElement.querySelector("#partLeft");
+        while (textLeft.firstChild) {
+                    textLeft.removeChild(textLeft.firstChild);
+                }
+
+        const textRight = this._mainElement.querySelector("#partRight");
+        while (textRight.firstChild) {
+            textRight.removeChild(textRight.firstChild);
         }
     }
 };

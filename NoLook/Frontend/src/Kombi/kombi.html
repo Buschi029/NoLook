@@ -125,52 +125,81 @@
         text-align: center;
     }
 
+    main .content textarea{
+        resize: none;
+        border: none;
+        background: none;
+        height: 25px;
+        width: 100%;
+    }
+    main .toDoEntry button{
+        height: 40px;
+        width: 40px;
+        font-size: 30px;
+        text-align: center;
+
+    }
+    main #form {
+        width: 350px;
+        height: 270px;
+        left: 50%;
+        top: 50%;
+        margin-left: -135px;
+        margin-top: -175px;
+        background-color: antiquewhite;
+        position:absolute;
+        border: 2px solid black;
+    }
+
 </style>
 
 <!-- Inhalt der Seite -->
 <main>
     <div class="background">
         <div class="underTabs">
-            <button class="underTab_button" onclick="showForm()">Neue Aufgabe</button>
+            <button class="underTabButton">Neue Aufgabe</button>
+          
         </div>
         <div class="content"><center>
             <label id="Datum"></label>
             <div class="boxbackground">
-                <div class="box">
-                    <label class="title">Titel</label><textarea class="row"></textarea>
-                    <textarea id="lefttext" class="row">Test</textarea>
+                <div class="box" id="leftPart">
+                    <label class="title" id="terminTitle">Termine</label>
+                    <textarea class="row" id="terminTitle"></textarea>
+                    <textarea class="row" id="terminTitle"></textarea>
+                    <textarea class="row" id="terminTitle"></textarea>
+                    
 
                 </div>
             </div>
             <div class="boxbackground">
-                <div class="box">
-                    <label class="title">ToDo's</label><textarea class="row"></textarea>
-                    <textarea id="righttext" class="row">Test</textarea>
+                <div class="box" id="rightPart">
+                    <label class="title" id="terminTitle">ToDo's</label>
+                    <textarea class="row" id="terminTitle"></textarea>
+                    <textarea class="row" id="terminTitle"></textarea>
+                    <textarea class="row" id="terminTitle"></textarea>
+                    
 
                 </div>
             </div>
-            <script>
-                function showForm() {
-                    document.getElementById('form').style.display = "block";
-                }
-
-            </script>
+            
         </center>
         </div>
-
+        
     <div class="form" id="form" style="display:none">
         <form class="form-container">
+            <center>
             <h1>Neuer Eintrag</h1>
 
             <label for="titel"><b>Titel: </b></label>
-            <input type="text" placeholder="Titel eingeben" required>
+            <input type="text" placeholder="Titel eingeben" required id="title">
             <p></p>
             <label for="datum"><b>Datum:</b></label>
-            <input type="date" required>
+            <input type="date" required id="date">
             <p></p>
             <label for="uhrzeit"><b>Uhrzeit:</b></label>
 
-            <select name="uhrzeit" id="uhrzeit">
+            <select name="uhrzeit" id="time">
                 <option value="8">8:00</option>
                 <option value="9">9:00</option>
                 <option value="10">10:00</option>
@@ -184,7 +213,7 @@
             <p></p>
             <label for="uhrzeit"><b>Dauer:</b></label>
 
-            <select name="dauer" id="dauer">
+            <select name="dauer" id="duration">
                 <option value="1h">1h</option>
                 <option value="2h">2h</option>
                 <option value="3h">3h</option>
@@ -195,15 +224,10 @@
             </select>
             <p></p>
 
-            <button type="submit" class="speichern">Speichern</button>
-            <input type="reset" value="Zurücksetzen" id="reset" />
-            <button type="button" class="abbrechen" onclick="closeForm()">Abbrechen</button>
-            <script>
-                function closeForm() {
-                    document.getElementById('form').style.display = "none";
-                }
+            <button type="button" id="safe">Speichern</button>
+            <!--<input type="reset" value="Zurücksetzen" id="reset" />-->
+            <button type="button" id="cancel" >Abbrechen</button>
+           
 
-            </script>
-
-        </form>
+        </form></center>
 </main>
