@@ -40,7 +40,6 @@ export default class PageList extends Page {
     async init() {
         // HTML-Inhalt nachladen
         await super.init();
-        /////////////////////////////////////////////////////
         
         data = await this._app.backend.fetch("GET", "/termine");
         let newButton = this._mainElement.querySelector(".underTabButton");
@@ -48,8 +47,8 @@ export default class PageList extends Page {
             let showForm = this._mainElement.querySelector("#form");
             showForm.style.display="block";
         })
-        let safeButton = this._mainElement.querySelector("#safe");
-        safeButton.addEventListener("click", this.save());
+        //let safeButton = this._mainElement.querySelector("#safe");
+        //safeButton.addEventListener("click", this.save());
 
         let cancelButton = this._mainElement.querySelector("#cancel");
         cancelButton.addEventListener("click", ()=>{
@@ -61,11 +60,11 @@ export default class PageList extends Page {
         let datumCode = url.split('?');
         let date = datumCode[1];
         let dateArray = date.split('-');
-
+        alert(date);
         let day = dateArray[0];
         let month = dateArray[1];
         let year = dateArray[2];
-        showDate = new Date(dateArray[2],dateArray[1]-1, dateArray[0])
+        showDate = new Date(dateArray[2],dateArray[1]-1, dateArray[0]);
         var monat = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Okotber", "November", "Dezember",];
         this._mainElement.querySelector('#Datum').textContent = ""+day+". "+monat[month]+" "+year;
         this.addToDo();
@@ -137,15 +136,13 @@ clear() {
 }
 save() {
     let titleInput = this._mainElement.querySelector("#title").value;
-    //let dateInput= new Date(this._mainElement.querySelector("#date").value);
+    let dateInput= new Date(this._mainElement.querySelector("#date").value);
     let timeInput = this._mainElement.querySelector("#time").value;
     let durationInput = this._mainElement.querySelector("#duration").value;
-    //let terminDate = ""+dateInput.toString()+" "+timeInput.toString()+":00";
-    alert(this._mainElement.querySelector("#date").value);
+    let terminDate = ""+dateInput.toString()+" "+timeInput.toString()+":00";
     let showForm = this._mainElement.querySelector("#form");
-            showForm.style.display="none";
-
-   this.init();
+    //showForm.style.display="none";
+    //this.addToDo();
 }
 };
 

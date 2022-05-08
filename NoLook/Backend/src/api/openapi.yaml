@@ -279,7 +279,7 @@ components:
       example:
         _id: "621ff9a936997df5baba746e"
         title: "Abendessen"
-        date: "24.12.2022"
+        date: "24.12.2022 12:00:00"
         duration: 45
         kind: "termin"
   securitySchemes: {}

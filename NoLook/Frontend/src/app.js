@@ -30,11 +30,17 @@ class App {
                 show: () => this._gotoToDo()
             },{
                 url: "^/Tagessicht/*",
-                show: () => this._gotoCombi(),
+                show: () => this._gotoCombi()
+            },{
+                url: "^/EintragBearbeiten/(.*)$",
+                show: matches => this._gotoEdit(matches[1]),
+            },{
+                url: "^/EintragErstellen/*",
+                show: () => this._gotoNew()
             },{
                 url: ".*",
                 show: () => this._gotoCal()
-            },
+            }
         ]);
         
 
@@ -107,6 +113,32 @@ class App {
             let page = new PageList(this);
             await page.init();
             this._showPage(page, "combi");
+        } catch (ex) {
+            this.showException(ex);
+        }
+    }
+
+    async _gotoEdit(id) {
+        try {
+            // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
+            let {default: PageList} = await import("./Eintrag/entry.js");
+
+            let page = new PageList(this, id);
+            await page.init();
+            this._showPage(page, "edit");
+        } catch (ex) {
+            this.showException(ex);
+        }
+    }
+
+    async _gotoNew() {
+        try {
+            // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
+            let {default: PageList} = await import("./NeuerEintrag/newEntry.js");
+
+            let page = new PageList(this);
+            await page.init();
+            this._showPage(page, "new");
         } catch (ex) {
             this.showException(ex);
         }
