@@ -55,14 +55,14 @@ class DatabaseFactory {
                 },
                 {
                     title: "Bus",
-                    date: "08.05.2022 9:00:00",
-                    duration: 30,
+                    date: "08.05.2022 09:00:00",
+                    duration: 60,
                     kind: "termin",
                 },
                 {
                     title: "Frühstück",
-                    date: "08.05.2022 8:00:00",
-                    duration: 30,
+                    date: "08.05.2022 08:00:00",
+                    duration: 60,
                     kind: "termin",
                 },
             ]);

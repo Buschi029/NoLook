@@ -42,25 +42,17 @@ export default class PageList extends Page {
         await super.init();
         
         data = await this._app.backend.fetch("GET", "/termine");
-        let newButton = this._mainElement.querySelector(".underTabButton");
-        newButton.addEventListener("click", ()=>{
-            let showForm = this._mainElement.querySelector("#form");
-            showForm.style.display="block";
+        let newButton = this._mainElement.querySelector("#but");
+        newButton.addEventListener("click", () => {
+            let link = this._mainElement.querySelector("#buttonSave");
+            link.href = "#/EintragErstellen";
         })
-        //let safeButton = this._mainElement.querySelector("#safe");
-        //safeButton.addEventListener("click", this.save());
 
-        let cancelButton = this._mainElement.querySelector("#cancel");
-        cancelButton.addEventListener("click", ()=>{
-            let showForm = this._mainElement.querySelector("#form");
-            showForm.style.display="none";
-        })
 
         let url = document.location.toString();
         let datumCode = url.split('?');
         let date = datumCode[1];
         let dateArray = date.split('-');
-        alert(date);
         let day = dateArray[0];
         let month = dateArray[1];
         let year = dateArray[2];
@@ -69,7 +61,7 @@ export default class PageList extends Page {
         this._mainElement.querySelector('#Datum').textContent = ""+day+". "+monat[month]+" "+year;
         this.addToDo();
 }
-addToDo() {
+async addToDo() {
     
     this.clear();
     for (var datensatz in data) {
@@ -82,16 +74,24 @@ addToDo() {
             let text = this._mainElement.querySelector("#leftPart");
     
             var input = document.createElement("textarea");
+            var linkEdit = document.createElement("a");
             var editIcon = document.createElement("button");
             var deleteIcon = document.createElement("button");
             var icons = document.createElement("div");
             icons.className = "toDoEntry";
             input.value=""+ datePart[1].toString().substr(0,5) +"     "+ dataset.title;
             editIcon.textContent = "✎";
-            editIcon.id = dataset.id;
+            var linkid = dataset._id;
+
+            linkEdit.href = "#/EintragBearbeiten/"+linkid;
+            linkEdit.appendChild(editIcon);
+
             deleteIcon.textContent = "🗑";
-            deleteIcon.id = dataset.id
-            icons.appendChild(editIcon);
+            deleteIcon.addEventListener("click", async () => {
+                await this._app.backend.fetch("DELETE", "/termine/" + linkid);
+                location.hash = "#/";
+            })
+            icons.appendChild(linkEdit);
             icons.appendChild(deleteIcon);
             text.appendChild(input);
             text.appendChild(icons);
@@ -103,15 +103,23 @@ addToDo() {
     
             var input = document.createElement("textarea");
             var editIcon = document.createElement("button");
+            var linkEdit = document.createElement("a");
             var deleteIcon = document.createElement("button");
             var icons = document.createElement("div");
             icons.className = "toDoEntry";
             input.value=dataset.title;
             editIcon.textContent = "✎";
-            editIcon.id = dataset.id;
+            var linkid = dataset._id;
+
+            linkEdit.href = "#/EintragBearbeiten/"+linkid;
+            linkEdit.appendChild(editIcon);
+
             deleteIcon.textContent = "🗑";
-            deleteIcon.id = dataset.id
-            icons.appendChild(editIcon);
+            deleteIcon.addEventListener("click", async () => {
+                await this._app.backend.fetch("DELETE", "/termine/" + linkid);
+                location.hash = "#/";
+            })
+            icons.appendChild(linkEdit);
             icons.appendChild(deleteIcon);
             text.appendChild(input);
             text.appendChild(icons);
@@ -134,15 +142,9 @@ clear() {
         textRight.removeChild(textRight.firstChild);
     }
 }
-save() {
-    let titleInput = this._mainElement.querySelector("#title").value;
-    let dateInput= new Date(this._mainElement.querySelector("#date").value);
-    let timeInput = this._mainElement.querySelector("#time").value;
-    let durationInput = this._mainElement.querySelector("#duration").value;
-    let terminDate = ""+dateInput.toString()+" "+timeInput.toString()+":00";
-    let showForm = this._mainElement.querySelector("#form");
-    //showForm.style.display="none";
-    //this.addToDo();
+
+toNewWindow() {
+
 }
 };
 

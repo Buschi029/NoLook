@@ -51,8 +51,10 @@ export default class PageEdit extends Page {
 
         
         await super.init();
-        data = await this._app.backend.fetch("GET", "/termine");
-        this._dataset = await this._app.backend.fetch("GET", "termine/" + this._editId);
+        this._dataset = await this._app.backend.fetch("GET", "/termine/" + this._editId);
+        let saveButton = this._mainElement.querySelector("#save");
+        this.show();
+        saveButton.addEventListener("click", () => this.save());
     }
     
     show() {
@@ -65,10 +67,18 @@ export default class PageEdit extends Page {
         let dateInput = this._mainElement.querySelector("#date");
         let timeInput = this._mainElement.querySelector("#time");
         let durationInput = this._mainElement.querySelector("#duration");
-        titleInput.textContent = this._dataset.title;
+        titleInput.value = this._dataset.title;
         let timePointArray = this._dataset.date.split(" ");
         let dateArray = timePointArray[0].split(".");
-        dateInput.datepicker("setDate", new Date(dateArray[2], dateArray[1] - 1, dateArray[0]));
+
+        let monat;
+        if ((dateArray[1]).toString().length < 2) {
+            monat = "0" + (dateArray[1]);
+        }
+        else {
+            monat = (dateArray[1]);
+        }
+        dateInput.value = "" + dateArray[2]+"-"+monat+"-"+dateArray[0];
         if (this._dataset.kind == "termin") {
             terminRadio.checked = true;
             todoRadio.checked = false;
@@ -80,7 +90,7 @@ export default class PageEdit extends Page {
 
         if (terminRadio.checked == true) {
             timeInput.value = timePointArray[1].substring(0, 5);
-            durationInput.value = this._dataset.duration.toString();
+            durationInput.value = this._dataset.duration.toString()/60;
             uhrzeit.style.display = "inline";
             dauer.style.display = "inline";
 
@@ -98,7 +108,7 @@ export default class PageEdit extends Page {
         let titleInput = this._mainElement.querySelector("#title").value;
         let dateInput = this._mainElement.querySelector("#date").value;
         let datePart = dateInput.toString().split("-");
-        let terminDate
+        let terminDate;
         if (todoRadio.checked == true) {
 
             dateInput = "" + datePart[2] + "." + datePart[1] + "." + datePart[0];
@@ -125,8 +135,8 @@ export default class PageEdit extends Page {
         if (todoRadio.checked == true) {
             this._dataset.kind = "todo";
         }
-        await this._app.backend.fetch("PUT", "termine/" + this._editId, { body: this._dataset });
-        alert(this._dataset.title);
+        await this._app.backend.fetch("PUT", "/termine/" + this._editId, { body: this._dataset });
         this._mainElement.querySelector("#title").textContent = "";
+        location.hash = "#/";
     }
 };

@@ -54,6 +54,12 @@ export default class PageList extends Page {
 
         let rightButton = this._mainElement.querySelector("#moveRight");
         rightButton.addEventListener("click", () => this.moveRight());
+
+        let newButton = this._mainElement.querySelector("#but");
+        newButton.addEventListener("click", () => {
+            let link = this._mainElement.querySelector("#buttonSave");
+            link.href = "#/EintragErstellen";
+        })
         
         this.dateText();
     }
@@ -112,22 +118,29 @@ export default class PageList extends Page {
             if(dataset.kind=="todo" && date.getDate()==compareDate.getDate() && date.getMonth()==compareDate.getMonth() && date.getFullYear()==compareDate.getFullYear()){
             
                 let text = this._mainElement.querySelector("#partLeft");
-                // while (text.firstChild) {
-                //     text.removeChild(text.firstChild);
-                // }
+
                 
                 text.innerHTML="";
                 var input = document.createElement("textarea");
                 var editIcon = document.createElement("button");
+                var linkEdit = document.createElement("a");
                 var deleteIcon = document.createElement("button");
                 var icons = document.createElement("div");
                 icons.className = "toDoEntry";
                 input.value=dataset.title;
                 editIcon.textContent = "✎";
-                editIcon.id = dataset.id;
+                var linkid = dataset._id;
+
+                linkEdit.href = "#/EintragBearbeiten/"+linkid;
+                linkEdit.appendChild(editIcon);
+    
                 deleteIcon.textContent = "🗑";
-                deleteIcon.id = dataset.id
-                icons.appendChild(editIcon);
+                deleteIcon.addEventListener("click", async () => {
+                    await this._app.backend.fetch("DELETE", "/termine/" + linkid);
+                    location.hash = "#/";
+                })
+
+                icons.appendChild(linkEdit);
                 icons.appendChild(deleteIcon);
                 text.appendChild(input);
                 text.appendChild(icons);
@@ -144,15 +157,23 @@ export default class PageList extends Page {
                    
                     var input = document.createElement("textarea");                
                     var editIcon = document.createElement("button");
+                    var linkEdit = document.createElement("a");
                     var deleteIcon = document.createElement("button");
                     var icons = document.createElement("div");
                     icons.className = "toDoEntry";
                     input.value=dataset.title;
                     editIcon.textContent = "✎";
-                    editIcon.id = dataset.id;
+                    var linkid = dataset._id;
+                    linkEdit.href = "#/EintragBearbeiten/"+linkid;
+                    linkEdit.appendChild(editIcon);
+        
                     deleteIcon.textContent = "🗑";
-                    deleteIcon.id = dataset.id
-                    icons.appendChild(editIcon);
+                    deleteIcon.id = dataset.id;
+                    deleteIcon.addEventListener("click", async () => {
+                        await this._app.backend.fetch("DELETE", "/termine/" + linkid);
+                        location.hash = "#/";
+                    })
+                    icons.appendChild(linkEdit);
                     icons.appendChild(deleteIcon);
                     text.appendChild(input);
                     text.appendChild(icons);

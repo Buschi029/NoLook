@@ -130,7 +130,7 @@ export default class PageEdit extends Page {
                 let datensatz = list[dataset];
                 
                 if (helpDate.getDate()==datensatz.getDate() && helpDate.getMonth()==datensatz.getMonth() && helpDate.getFullYear()==datensatz.getFullYear()) {
-                    this._mainElement.querySelector(id).style.backgroundColor="red";
+                    this._mainElement.querySelector(id).style.backgroundColor="RGB(161, 252, 238)";
                 }
             }
             start = start + 1;

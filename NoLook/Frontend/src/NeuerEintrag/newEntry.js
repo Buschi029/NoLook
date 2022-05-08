@@ -83,12 +83,12 @@ export default class PageEdit extends Page {
         let titleInput = this._mainElement.querySelector("#title").value;
         let dateInput= this._mainElement.querySelector("#date").value;
         let datePart = dateInput.toString().split("-");
-        let terminDate
+        let terminDate;
         if (todoRadio.checked == true) {
 
             dateInput = "" + datePart[2] + "." + datePart[1] + "." + datePart[0];
             terminDate = ""+dateInput.toString()+" 00:00:00";
-            this._dataset.duration = 0;
+            this._dataset.duration = parseInt(60);
         }
         else {
 
@@ -96,7 +96,7 @@ export default class PageEdit extends Page {
             let timeInput = this._mainElement.querySelector("#time").value;
             let durationInput = this._mainElement.querySelector("#duration").value;
             terminDate = ""+dateInput.toString()+" "+timeInput.toString()+":00";
-            this._dataset.duration = parseInt(durationInput) * 60;
+            this._dataset.duration = parseInt(parseInt(durationInput) * 60);
         }
 
 
@@ -111,7 +111,7 @@ export default class PageEdit extends Page {
             this._dataset.kind = "todo";
         }
         await this._app.backend.fetch("POST", "/termine", {body: this._dataset});
-        alert(this._dataset.title);
         this._mainElement.querySelector("#title").textContent = "";
+        location.hash = "#/";
     }
 };
